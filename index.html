@@ -1,0 +1,301 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For You ♡</title>
+
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #ffe4ef, #fff5f8, #ffd6e7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: Georgia, serif;
+  overflow: hidden;
+}
+
+.scene {
+  perspective: 1500px;
+  width: 330px;
+  height: 440px;
+}
+
+.book {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+}
+
+/* INSIDE PAGE */
+
+.inside {
+  position: absolute;
+  inset: 0;
+  border-radius: 8px 18px 18px 8px;
+  background: #fffafd;
+  box-shadow: 5px 8px 25px #d99ab455;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+.inside h2 {
+  color: #d66c98;
+  font-size: 25px;
+  margin-bottom: 8px;
+  z-index: 2;
+}
+
+.inside p {
+  color: #c98aa7;
+  font-size: 14px;
+  z-index: 2;
+}
+
+/* HEART */
+
+.heart {
+  position: absolute;
+  width: 95%;
+  top: 19%;
+  z-index: 1;
+}
+
+.heart path {
+  fill: none;
+  stroke: #f47eaa;
+  stroke-width: 2.5;
+  stroke-dasharray: 700;
+  stroke-dashoffset: 700;
+  stroke-linecap: round;
+}
+
+.book.open .heart path {
+  animation: draw 4s ease forwards;
+}
+
+@keyframes draw {
+  to { stroke-dashoffset: 0; }
+}
+
+/* FLOWER */
+
+.flower {
+  position: relative;
+  z-index: 2;
+  width: 85%;
+  opacity: 0;
+  transform: scale(.1);
+}
+
+.flower img {
+  width: 100%;
+  object-fit: contain;
+  filter: drop-shadow(0 10px 12px #d99ab455);
+}
+
+.book.open .flower {
+  animation: bloom 2.5s ease 1s forwards,
+             float 4s ease-in-out 3.5s infinite;
+}
+
+@keyframes bloom {
+  0% { opacity: 0; transform: scale(.1); }
+  70% { opacity: 1; transform: scale(1.1); }
+  100% { opacity: 1; transform: scale(1); }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+/* BOOK COVER */
+
+.cover {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  transform-origin: left;
+  transform-style: preserve-3d;
+  transition: transform 1.8s cubic-bezier(.65,0,.35,1);
+  cursor: pointer;
+}
+
+.book.open .cover {
+  transform: rotateY(-165deg);
+  pointer-events: none;
+}
+
+.front {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, #f8a8c7, #e77ca9);
+  border: 5px solid #fbd3e2;
+  border-radius: 8px 18px 18px 8px;
+  backface-visibility: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 5px 8px 20px #c77b9b66;
+}
+
+.front h1 {
+  color: white;
+  font-size: 32px;
+  text-align: center;
+}
+
+.front p {
+  color: #fff3f8;
+  margin-top: 18px;
+  font-size: 16px;
+}
+
+.front .decoration {
+  font-size: 45px;
+  margin-bottom: 25px;
+}
+
+.back {
+  position: absolute;
+  inset: 0;
+  background: #ffe6ef;
+  transform: rotateY(180deg);
+  backface-visibility: hidden;
+}
+
+/* CLOSE BUTTON */
+
+.close {
+  position: absolute;
+  bottom: 15px;
+  right: 15px;
+  z-index: 10;
+  background: #f5a1c2;
+  color: white;
+  border: none;
+  border-radius: 20px;
+  padding: 9px 17px;
+  cursor: pointer;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.book.open .close {
+  opacity: 1;
+  pointer-events: auto;
+  transition: opacity 1s 2s;
+}
+
+/* SPARKLES */
+
+.sparkle {
+  position: fixed;
+  color: #ed83ad;
+  animation: sparkle 3s infinite ease-in-out;
+  pointer-events: none;
+}
+
+.s1 { top: 15%; left: 15%; }
+.s2 { top: 25%; right: 15%; animation-delay: 1s; }
+.s3 { bottom: 20%; left: 20%; animation-delay: 2s; }
+.s4 { bottom: 15%; right: 18%; animation-delay: .5s; }
+
+@keyframes sparkle {
+  0%,100% { opacity: .3; transform: scale(.8); }
+  50% { opacity: 1; transform: scale(1.5); }
+}
+
+@media(max-width: 400px) {
+  .scene {
+    width: 285px;
+    height: 390px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<span class="sparkle s1">♡</span>
+<span class="sparkle s2">✧</span>
+<span class="sparkle s3">♥</span>
+<span class="sparkle s4">♡</span>
+
+<div class="scene">
+
+<div class="book" id="book">
+
+  <!-- INSIDE BOOK -->
+  <div class="inside">
+
+    <h2>For You ♡</h2>
+    <p>A little flower, just for you</p>
+
+    <!-- HEART LINE -->
+    <svg class="heart" viewBox="0 0 300 260">
+      <path d="
+        M150 235
+        C125 210 20 135 35 65
+        C50 -5 125 5 150 75
+        C175 5 250 -5 265 65
+        C280 135 175 210 150 235
+      "/>
+    </svg>
+
+    <!-- FLOWER -->
+    <div class="flower">
+      <img src="flower.png" alt="Flower bouquet">
+    </div>
+
+    <p>I hope this makes you smile ♡</p>
+
+    <button class="close" onclick="closeBook(event)">
+      Close ♡
+    </button>
+
+  </div>
+
+  <!-- BOOK COVER -->
+  <div class="cover" onclick="openBook()">
+    <div class="front">
+      <div class="decoration">🌷</div>
+      <h1>Open Me</h1>
+      <p>There's something for you ♡</p>
+      <p style="font-size:35px;">♥</p>
+    </div>
+    <div class="back"></div>
+  </div>
+
+</div>
+</div>
+
+<script>
+const book = document.getElementById("book");
+
+function openBook() {
+  book.classList.add("open");
+}
+
+function closeBook(event) {
+  event.stopPropagation();
+  book.classList.remove("open");
+}
+</script>
+
+</body>
+</html>
